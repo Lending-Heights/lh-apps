@@ -2,10 +2,295 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>LH Apps</title>
+  <title>LH Apps Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Poppins font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --lh-blue: #0058a9;
+      --lh-red: #ce003b;
+      --lh-bg: #0f172a;
+      --lh-card: #ffffff;
+      --lh-text: #1e1e1e;
+      --lh-muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0b1220 0, #020617 40%, #000000 100%);
+      color: #f9fafb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+      width: 100%;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.16);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--lh-blue), var(--lh-red));
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 40px;
+      }
+    }
+
+    .subtitle {
+      max-width: 640px;
+      font-size: 14px;
+      color: #d1d5db;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 960px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: var(--lh-card);
+      color: var(--lh-text);
+      border-radius: 18px;
+      padding: 18px 16px 16px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.35);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(0, 88, 169, 0.12), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(206, 0, 59, 0.08), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.18s ease-out;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 55px rgba(15, 23, 42, 0.45);
+      border-color: rgba(37, 99, 235, 0.65);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--lh-muted);
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--lh-muted);
+      margin-bottom: 12px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    .chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 11px;
+      background: #f9fafb;
+    }
+
+    .arrow {
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 16px 20px 24px;
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    .brand {
+      font-weight: 600;
+      background: linear-gradient(90deg, var(--lh-blue), var(--lh-red));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  </style>
 </head>
 <body>
-  <h1>LH Apps – Coming Soon</h1>
-  <p>This site is hosted on GitHub Pages for apps.whylendingheights.com.</p>
+  <div class="shell">
+    <header>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        LH Internal
+      </div>
+      <h1>LH Apps Hub</h1>
+      <p class="subtitle">
+        Central launchpad for internal tools, recruiting experiences, and onboarding apps at Lending Heights.
+        Use the tiles below to jump into the specific app or workflow you need.
+      </p>
+      <div class="pill-row">
+        <span class="pill">For internal teams & leadership</span>
+        <span class="pill">Built on GitHub Pages</span>
+        <span class="pill">Version 0.1</span>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- Example card: Recruiting / Transition Packages -->
+      <a class="card" href="#" target="_blank" rel="noopener noreferrer">
+        <div class="card-label">Recruiting</div>
+        <div class="card-title">Transition Package Preview</div>
+        <div class="card-body">
+          Personalized landing pages that show recruits their projected comp, pricing access, and ops support under the hybrid model.
+        </div>
+        <div class="card-footer">
+          <span class="chip">Coming soon</span>
+          <span class="arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- Example card: Onboarding -->
+      <a class="card" href="#" target="_blank" rel="noopener noreferrer">
+        <div class="card-label">Onboarding</div>
+        <div class="card-title">TalentFlow Onboarding Hub</div>
+        <div class="card-body">
+          Track new hire progress, paperwork, and launch tasks from pre-arrival through their first 90 days.
+        </div>
+        <div class="card-footer">
+          <span class="chip">In planning</span>
+          <span class="arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- Example card: Marketing -->
+      <a class="card" href="#" target="_blank" rel="noopener noreferrer">
+        <div class="card-label">Marketing</div>
+        <div class="card-title">Digital Playbook</div>
+        <div class="card-body">
+          Guided campaigns, content prompts, and tech stack shortcuts for LOs who want plug-and-play marketing.
+        </div>
+        <div class="card-footer">
+          <span class="chip">Prototype</span>
+          <span class="arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- Example card: Ops / Pipeline -->
+      <a class="card" href="#" target="_blank" rel="noopener noreferrer">
+        <div class="card-label">Operations</div>
+        <div class="card-title">Pipeline Health Dashboard</div>
+        <div class="card-body">
+          Snapshot of CTC times, disclosure speed, and file flow so leadership can see friction before it hurts volume.
+        </div>
+        <div class="card-footer">
+          <span class="chip">Future build</span>
+          <span class="arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- You can duplicate cards above and customize as apps go live -->
+    </main>
+  </div>
+
+  <footer>
+    <span class="brand">Lending Heights</span> · Internal apps hub · apps.whylendingheights.com
+  </footer>
 </body>
 </html>
